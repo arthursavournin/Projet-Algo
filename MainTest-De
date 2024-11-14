@@ -1,0 +1,13 @@
+namespace PROJETALGO
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            De de = new De();
+            de.DefinirLettres();
+            Console.WriteLine(de.toString());
+            de.Lance();
+        }
+    }
+}
