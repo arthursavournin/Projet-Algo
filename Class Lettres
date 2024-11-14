@@ -1,0 +1,102 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PROJETALGO
+{
+    internal class Lettre
+    {
+        public char valeur;
+        public int nombre;
+        public int poids;
+        public char Valeur
+        {
+            get { return valeur; }
+            set { valeur = value; }
+        }
+        public int Nombre
+        {
+            get { return nombre; }
+            set { nombre = value; }
+        }
+        public int Poids
+        {
+            get { return poids; }
+            set { poids = value; }
+        }
+        public Lettre(char valeur,int nombre,int poids)
+        {
+            this.valeur = valeur;
+            this.nombre = nombre;
+            this.poids = poids;
+        }
+        public static Lettre[] LettresDispo = new Lettre[]
+        {
+        new Lettre('A', 1, 1),
+        new Lettre('B', 3, 2),
+        new Lettre('C', 3, 2),
+        new Lettre('D', 2, 3),
+        new Lettre('E', 1, 1),
+        new Lettre('F', 4, 4),
+        new Lettre('G', 2, 2),
+        new Lettre('H', 4, 3),
+        new Lettre('I', 1, 1),
+        new Lettre('J', 8, 5),
+        new Lettre('K', 10, 6),
+        new Lettre('L', 1, 1),
+        new Lettre('M', 2, 3),
+        new Lettre('N', 1, 1),
+        new Lettre('O', 1, 2),
+        new Lettre('P', 3, 3),
+        new Lettre('Q', 8, 4),
+        new Lettre('R', 1, 2),
+        new Lettre('S', 1, 1),
+        new Lettre('T', 1, 2),
+        new Lettre('U', 1, 2),
+        new Lettre('V', 4, 5),
+        new Lettre('W', 10, 6),
+        new Lettre('X', 10, 6),
+        new Lettre('Y', 10, 7),
+        new Lettre('Z', 10, 7)
+        };
+        /// <summary>
+        /// Méthode pour obtenir une liste de lettres avec leur fréquence
+        /// </summary>
+        /// <returns>lettres (un char[])</returns>
+        public static char[] ObtenirLettre()
+        {
+            int taille = 0;
+            for(int i = 0;i<LettresDispo.Length;i++)
+            {
+                taille =taille+LettresDispo[i].nombre;
+            }
+            char[]lettres=new char[taille];
+            int n;
+            int c = 0;
+            for(int j = 0; j < LettresDispo.Length; j++)
+            {
+                n = LettresDispo[j].nombre;
+                while (n > 0)
+                {
+                    lettres[c] = LettresDispo[j].valeur;
+                    n--;
+                    c++;
+                }
+            }
+            return lettres;
+        }
+        /// <summary>
+        /// Cette méthode permet d'afficher le tableau de caractère
+        /// </summary>
+        /// <param name="l"></param>
+        public static void Affichertab(char[] l)//pour vérifier que le tableau retourner par ObtenirLettre est correct
+        {
+            for(int i = 0; i < l.Length; i++)
+            {
+                Console.Write(l[i]+" ");
+            }
+        }
+    }
+}
