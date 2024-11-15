@@ -26,40 +26,40 @@ namespace PROJETALGO
             get { return poids; }
             set { poids = value; }
         }
-        public Lettre(char valeur,int nombre,int poids)
+        public Lettre(char valeur,int poids,int nombre)
         {
             this.valeur = valeur;
-            this.nombre = nombre;
             this.poids = poids;
+            this.nombre = nombre;
         }
         public static Lettre[] LettresDispo = new Lettre[]
         {
-        new Lettre('A', 1, 1),
+        new Lettre('A', 1, 9),
         new Lettre('B', 3, 2),
         new Lettre('C', 3, 2),
         new Lettre('D', 2, 3),
-        new Lettre('E', 1, 1),
-        new Lettre('F', 4, 4),
+        new Lettre('E', 1, 15),
+        new Lettre('F', 4, 2),
         new Lettre('G', 2, 2),
-        new Lettre('H', 4, 3),
-        new Lettre('I', 1, 1),
-        new Lettre('J', 8, 5),
-        new Lettre('K', 10, 6),
-        new Lettre('L', 1, 1),
+        new Lettre('H', 4, 2),
+        new Lettre('I', 1, 8),
+        new Lettre('J', 8, 1),
+        new Lettre('K', 10, 1),
+        new Lettre('L', 1, 5),
         new Lettre('M', 2, 3),
-        new Lettre('N', 1, 1),
-        new Lettre('O', 1, 2),
-        new Lettre('P', 3, 3),
-        new Lettre('Q', 8, 4),
-        new Lettre('R', 1, 2),
-        new Lettre('S', 1, 1),
-        new Lettre('T', 1, 2),
-        new Lettre('U', 1, 2),
-        new Lettre('V', 4, 5),
-        new Lettre('W', 10, 6),
-        new Lettre('X', 10, 6),
-        new Lettre('Y', 10, 7),
-        new Lettre('Z', 10, 7)
+        new Lettre('N', 1, 6),
+        new Lettre('O', 1, 6),
+        new Lettre('P', 3, 2),
+        new Lettre('Q', 8, 1),
+        new Lettre('R', 1, 6),
+        new Lettre('S', 1, 6),
+        new Lettre('T', 1, 6),
+        new Lettre('U', 1, 6),
+        new Lettre('V', 4, 2),
+        new Lettre('W', 10, 1),
+        new Lettre('X', 10, 1),
+        new Lettre('Y', 10, 1),
+        new Lettre('Z', 10, 1)
         };
         /// <summary>
         /// Méthode pour obtenir une liste de lettres avec leur fréquence
