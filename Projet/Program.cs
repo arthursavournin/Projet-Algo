@@ -11,25 +11,14 @@ namespace Projet_Algo
     {
         static void Main(string[] args)
         {
-            De de = new De();
-            de.DefinirLettres();
-            Console.WriteLine(de.toString());
-            de.Lance();
+            //De de = new De();
+            //de.DefinirLettres();
+            //Console.WriteLine(de.toString());
+            //de.Lance();
 
+            Dictionnaire b = new Dictionnaire("français");
+            Console.WriteLine(b.toString());
 
-            string filePath = "MotsPossiblesFR.txt";
-
-            if (File.Exists(filePath))
-            {
-                // Lire tout le contenu du fichier
-                string content = File.ReadAllText(filePath);
-                Console.WriteLine("Contenu du fichier :");
-                Console.WriteLine(content);
-            }
-            else
-            {
-                Console.WriteLine("Fichier introuvable !");
-            }
 
         }
     }

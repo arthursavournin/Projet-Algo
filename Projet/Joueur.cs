@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -45,6 +46,11 @@ namespace Projet_Algo
             return (mots.Contains (mot));
         }
 
+        /// <summary>
+        /// Ajouter le mot à la liste des mots déja trouvés par le joueur
+        /// </summary>
+        /// <param name="mot">Mot trouvé par le joueur</param>
+       
         public void AddMot(string mot)
         {
             mots.Add (mot);
