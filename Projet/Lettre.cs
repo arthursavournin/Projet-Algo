@@ -34,6 +34,10 @@ namespace Projet_Algo
         this.nombre = nombre;
     }
 
+    /// <summary>
+    /// Méthode qui crée un tableau de Lettres à partir du fichier texte
+    /// </summary>
+    /// <returns></returns>
     public static Lettre[] LettresDispo()
     {
         Lettre[] lettres = new Lettre[26];
