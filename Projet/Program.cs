@@ -9,18 +9,18 @@ namespace Projet_Algo
 {
     internal class Program
     {
-        static void Main(string[] args)
-        {
-            //De de = new De();
-            //de.DefinirLettres();
-            //Console.WriteLine(de.toString());
-            //de.Lance();
+         static void Main(string[] args)
+ {
+     //De de = new De();
+     //de.DefinirLettres();
+     //Console.WriteLine(de.toString());
+     //de.Lance();
 
-            Dictionnaire b = new Dictionnaire("français");
-            Console.WriteLine(b.toString());
-
-
-        }
+     Dictionnaire b = new Dictionnaire("français");
+     //Console.WriteLine(b.Dico());
+     Console.WriteLine(b.toString(8, 'a'));
+     Console.WriteLine(b.RechDicoRecursif("tuer"));
+ }
     }
  
 }
