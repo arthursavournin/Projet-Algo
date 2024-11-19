@@ -99,40 +99,54 @@ namespace Projet_Algo
     /// </summary>
     /// <param name="langue">Langue du dictionnaire</param>
     public Dictionnaire(string langue)
+{
+    this.langue = langue.ToLower();
+    mots = new List<string>();
+    if (this.langue == "français" || this.langue == "francais")
     {
-        this.langue = langue.ToLower();
-        mots = new List<string>();
-        if (this.langue == "français" || this.langue == "francais")
+        try
         {
-            string[] texte = File.ReadAllLines("MotsPossiblesFR.txt");
-
-            foreach (var mot in texte)
+            StreamReader fichier = new StreamReader("MotsPossiblesFR.txt");
+            string ligne;
+            while ((ligne = fichier.ReadLine()) != null)
             {
-                string[] motsTexte = mot.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] motsTexte = ligne.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 this.mots.AddRange(motsTexte);
             }
+            fichier.Close();
             this.mots = TriFusion(this.mots);
         }
-        else if (this.langue == "anglais")
+        catch (Exception ex)
         {
-            string[] texte = File.ReadAllLines("MotsPossiblesFR.txt");
-
-            foreach (var mot in texte)
-            {
-                string[] motsTexte = mot.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                this.mots.AddRange(motsTexte);
-            }
-
-            this.mots = TriFusion(this.mots);
+            Console.WriteLine("Erreur lors de la lecture du fichier : " + ex.Message);
         }
-        else
-        {
-            this.langue = null;
-            this.mots = null;
-            Console.WriteLine("cette langue n'est pas prise en compte.");
-        }
-
     }
+    else if (this.langue == "anglais")
+    {
+        try
+        {
+            StreamReader fichier = new StreamReader("MotsPossiblesEN.txt");
+            string ligne;
+            while ((ligne = fichier.ReadLine()) != null)
+            {
+                string[] motsTexte = ligne.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                this.mots.AddRange(motsTexte);
+            }
+            this.mots = TriFusion(this.mots);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Erreur lors de la lecture du fichier : " + ex.Message);
+        }
+    }
+    else
+    {
+        this.langue = null;
+        this.mots = null;
+        Console.WriteLine("cette langue n'est pas prise en compte.");
+    }
+
+}
 
     /// <summary>
     /// Méthode de tri fusion pour une liste de string 
