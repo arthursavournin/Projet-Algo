@@ -91,6 +91,7 @@ namespace Projet_Algo
 
         //}
 
+
         //Méthode 3 : On trie la liste par un trie fusion (meilleure compléxité)
 
         /// <summary>
@@ -105,28 +106,21 @@ namespace Projet_Algo
             {
                 string[] texte = File.ReadAllLines("MotsPossiblesFR.txt");
 
-                foreach (var ligne in texte)
+                foreach (var mot in texte)
                 {
-                    // Split les mots de chaque ligne en utilisant l'espace comme séparateur
-                    string[] motsDeLigne = ligne.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-                    // Ajoute chaque mot dans la liste
-                    this.mots.AddRange(motsDeLigne);
+                    string[] motsTexte = mot.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    this.mots.AddRange(motsTexte);
                 }
-
                 this.mots=TriFusion(this.mots);
             }
             else if (this.langue == "anglais")
             {
-                string[] texte = File.ReadAllLines("MotsPossiblesEN.txt");
+                string[] texte = File.ReadAllLines("MotsPossiblesFR.txt");
 
-                foreach (var ligne in texte)
+                foreach (var mot in texte)
                 {
-                    // Split les mots de chaque ligne en utilisant l'espace comme séparateur
-                    string[] motsDeLigne = ligne.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-                    // Ajoute chaque mot dans la liste
-                    this.mots.AddRange(motsDeLigne);
+                    string[] motsTexte = mot.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    this.mots.AddRange(motsTexte);
                 }
 
                 this.mots = TriFusion(this.mots);
@@ -222,7 +216,7 @@ namespace Projet_Algo
             string texte = "";
             for (int i = 0; i < mots.Count; i++)
             {
-                texte += mots[i] + "\n";
+                texte += mots[i] + " ";
             }
             return texte;
 
