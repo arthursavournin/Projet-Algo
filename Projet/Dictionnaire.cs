@@ -210,7 +210,7 @@ namespace Projet_Algo
         /// Méthode qui retourne les mots d'un dictionnaire
         /// </summary>
         /// <returns></returns>
-        public string toString()
+        public string Dico()
         {
             
             string texte = "";
@@ -220,6 +220,35 @@ namespace Projet_Algo
             }
             return texte;
 
+        }
+
+        /// <summary>
+        /// Méthode qui décrit le dictionnaire à savoir ici le nombre de mots par longueur, le nombre de mots par lettre et la langue
+        /// </summary>
+        /// <param name="n">Longueur recherchée</param>
+        /// <param name="m">Lettre recherchée</param>
+        /// <returns></returns>
+        public string toString(int n, char m)
+        {
+            string texte = "La langue du dictionnaire est " + langue;
+            int cn = 0;
+            int cm = 0;
+            for (int i=0; i < mots.Count;i++)
+            {
+                if (mots[i].Length==n)
+                {
+                    cn++;
+                }
+            }
+            for (int i = 0; i < mots.Count; i++)
+            {
+                if (mots[i][0] == char.ToLower(m) || mots[i][0] == char.ToLower(m))
+                {
+                    cm++;
+                }
+            }
+            texte += "Il y a " + cn + " mots qui ont une longueure de " + n + "\nIl y a " + cm + " mots qui commencent par la lettre " + m;
+            return texte;
         }
     }
 }
