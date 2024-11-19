@@ -12,6 +12,7 @@ namespace Projet
         public char valeur;
         public int poids;
         public int nombre;
+        
         public char Valeur
         {
             get { return valeur; }
