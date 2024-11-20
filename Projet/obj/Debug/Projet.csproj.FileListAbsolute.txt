@@ -1,0 +1,7 @@
+C:\Users\asavo\Desktop\Projet\obj\Debug\Projet.csproj.AssemblyReference.cache
+C:\Users\asavo\Desktop\Projet\obj\Debug\Projet.csproj.CoreCompileInputs.cache
+C:\Users\asavo\Desktop\Projet\bin\Debug\Projet.exe.config
+C:\Users\asavo\Desktop\Projet\bin\Debug\Projet.exe
+C:\Users\asavo\Desktop\Projet\bin\Debug\Projet.pdb
+C:\Users\asavo\Desktop\Projet\obj\Debug\Projet.exe
+C:\Users\asavo\Desktop\Projet\obj\Debug\Projet.pdb
