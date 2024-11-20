@@ -43,6 +43,9 @@ namespace Projet
             this.plateau_de_jeu = new De[hauteur, largeur];
         }
 
+        /// <summary>
+        /// Méthode qui permet de créer le plateau en tirant les 16 faces des dés
+        /// </summary>
         public void CreerPlateau()
         {
             List<De> destemp = new List<De>();
@@ -53,9 +56,29 @@ namespace Projet
                 for (int j = 0; j < largeur; j++)
                 {
                     int k = random.Next(destemp.Count());
+                    plateau_de_jeu[i, j] = destemp[k];
+                    destemp.RemoveAt(k);
                 }
             }
         }
 
+
+        /// <summary>
+        /// Méthode qui permet d'afficher le plateau de jeu
+        /// </summary>
+        /// <returns></returns>
+        public string toString()
+        {
+            string texte = "";
+            for (int i=0; i<hauteur;i++)
+            {
+                for (int j =0; j<largeur;j++)
+                {
+                    texte += plateau_de_jeu[i, j].Lance().Valeur+" ";
+                }
+                texte += "\n";
+            }
+            return texte;
+        }
     }
 }

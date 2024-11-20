@@ -40,7 +40,11 @@ namespace Projet
         }
 
 
-
+        /// <summary>
+        /// Méthode qui vérifie si le joueur à déja trouvé le mot 
+        /// </summary>
+        /// <param name="mot">Mot que le joueur vient de trouvé</param>
+        /// <returns>Vrai s'il a déjà trouvé ce mot ou faux sinon</returns>
         public bool Contain(string mot)
         {
             return (mots.Contains(mot));
