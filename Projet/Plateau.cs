@@ -15,6 +15,10 @@ namespace Projet
         private De[,] plateau_de_jeu;
         private Dictionnaire dico;
 
+        public List<De> Des 
+        { 
+            get { return des; } 
+        }
         public De[,] Plateau_de_jeu
         {
             get { return plateau_de_jeu; }
@@ -26,7 +30,7 @@ namespace Projet
         /// </summary>
         /// <param name="hauteur">Hauteur du plateau</param>
         /// <param name="largeur">Largeur du plateau</param>
-        public Plateau(int hauteur, int largeur,string langue)
+        public Plateau(int hauteur, int largeur, string langue)
         {
             this.hauteur = hauteur;
             this.largeur = largeur;
@@ -52,6 +56,10 @@ namespace Projet
             List<De> destemp = new List<De>();
             destemp.AddRange(des);
             Random random = new Random();
+            for (int k = 0; k < destemp.Count; k++)
+            {
+                destemp[k].FaceVisible = destemp[k].Lance();
+            }
             for (int i = 0; i < hauteur; i++)
             {
                 for (int j = 0; j < largeur; j++)
@@ -62,7 +70,13 @@ namespace Projet
                 }
             }
         }
-        public bool Test_Plateau(string mot,int index=0)
+        /// <summary>
+        /// Méthode qui vérifie si le mot est bien sur le plateau et est valide
+        /// </summary>
+        /// <param name="mot">Le mot à vérifier</param>
+        /// <param name="index">Indice du caractère (initialisé à 0)</param>
+        /// <returns>True si le mot est valide, false sinon</returns>
+        public bool Test_Plateau(string mot, int index = 0)
         {
             bool r = true;
             if (!dico.RechDicoRecursif(mot))
@@ -74,11 +88,11 @@ namespace Projet
                 bool[,] visite = new bool[this.plateau_de_jeu.GetLength(0), this.plateau_de_jeu.GetLength(1)];
                 for (int i = 0; i < this.plateau_de_jeu.GetLength(0); i++)
                 {
-                    for(int j = 0; j < this.plateau_de_jeu.GetLength(1); j++)
+                    for (int j = 0; j < this.plateau_de_jeu.GetLength(1); j++)
                     {
                         if (plateau_de_jeu[i, j].FaceVisible.Valeur == mot[0])
                         {
-                            if(MotExistant(mot, index, i, j,visite))
+                            if (MotExistant(mot, index, i, j, visite))
                             {
                                 r = true;
                             }
@@ -88,8 +102,17 @@ namespace Projet
             }
             return r;
         }
-        
-        public bool MotExistant(string mot,int index,int i,int j, bool[,]visite)
+
+        /// <summary>
+        /// Méthode récursive qui vérifie si le mot peut être formé
+        /// </summary>
+        /// <param name="mot">Le mot à former</param>
+        /// <param name="index">Indice du caractère </param>
+        /// <param name="i">Coordonée de la ligne du tableau</param>
+        /// <param name="j">Coordonée de la colonne du tableau</param>
+        /// <param name="visite">La matrice des cases déjà visitée</param>
+        /// <returns>True si le mot peut être formé, else sinon</returns>
+        public bool MotExistant(string mot, int index, int i, int j, bool[,] visite)
         {
             if (index == mot.Length - 1)
             {
@@ -97,21 +120,21 @@ namespace Projet
             }
             else
             {
-                if (i < 0 || j < 0 || i >= this.plateau_de_jeu.GetLength(0) || j >= this.plateau_de_jeu.GetLength(1) || this.plateau_de_jeu[i, j].FaceVisible.Valeur != mot[index] || visite[i,j])
+                if (i < 0 || j < 0 || i >= this.plateau_de_jeu.GetLength(0) || j >= this.plateau_de_jeu.GetLength(1) || this.plateau_de_jeu[i, j].FaceVisible.Valeur != mot[index] || visite[i, j])
                 {
                     return false;
                 }
                 else
                 {
-                    visite[i,j]=true;
-                    foreach(var(mouvi,mouvj) in new[] { (-1, 0),(1,0),(0,-1),(0,1),(-1,-1) })
+                    visite[i, j] = true;
+                    foreach (var (mouvi, mouvj) in new[] { (-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1) })
                     {
                         if (MotExistant(mot, index + 1, i + mouvi, j + mouvj, visite))
                         {
                             return true;
                         }
                     }
-                    visite[i,j]=false;
+                    visite[i, j] = false;
                 }
             }
             return false;
@@ -121,14 +144,14 @@ namespace Projet
         /// Méthode qui permet d'afficher le plateau de jeu
         /// </summary>
         /// <returns></returns>
-        public string toString()
+        public string AfficherPlateau()
         {
             string texte = "";
             for (int i = 0; i < hauteur; i++)
             {
                 for (int j = 0; j < largeur; j++)
                 {
-                    texte += plateau_de_jeu[i, j].Lance().Valeur + " ";
+                    texte += plateau_de_jeu[i, j].FaceVisible.Valeur + " ";
                 }
                 texte += "\n";
             }

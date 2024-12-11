@@ -9,6 +9,15 @@ namespace Projet
 {
     internal class Program
     {
+        static string AfficherDesPlateau(Plateau plateau)
+        {
+            string texte = "";
+            for (int i = 0;i<plateau.Des.Count();i++)
+            {
+                texte += plateau.Des[i].toString() + "\n";
+            }
+            return texte;
+        }
         static void Main(string[] args)
         {
             //De de = new De();
@@ -21,9 +30,12 @@ namespace Projet
             //Console.WriteLine(b.toString(8, 'a'));
             //Console.WriteLine(b.RechDicoRecursif("tuer"));
 
-            Plateau plateau = new Plateau(4, 4,"test"); 
+            Plateau plateau = new Plateau(4, 4, "français");
             plateau.CreerPlateau();
-            Console.WriteLine(plateau.toString());
+            Console.WriteLine(AfficherDesPlateau(plateau));
+            Console.WriteLine(plateau.AfficherPlateau());
+            //string mot = Console.ReadLine();
+            //Console.WriteLine(plateau.Test_Plateau(mot));
         }
     }
 }
