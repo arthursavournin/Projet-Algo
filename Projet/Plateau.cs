@@ -8,77 +8,130 @@ using System.Threading.Tasks;
 namespace Projet
 {
     internal class Plateau
+{
+    private int hauteur;
+    private int largeur;
+    private List<De> des;
+    private De[,] plateau_de_jeu;
+    private Dictionnaire dico;
+
+    public De[,] Plateau_de_jeu
     {
-        private int hauteur;
-        private int largeur;
-        private List<De> des;
-        private De[,] plateau_de_jeu;
+        get { return plateau_de_jeu; }
+        set { plateau_de_jeu = value; }
+    }
 
+    /// <summary>
+    /// Constructeur du plateau, initialise les dimensions, les dés et le premier plateau.
+    /// </summary>
+    /// <param name="hauteur">Hauteur du plateau</param>
+    /// <param name="largeur">Largeur du plateau</param>
+    public Plateau(int hauteur, int largeur,string langue)
+    {
+        this.hauteur = hauteur;
+        this.largeur = largeur;
+        int nb_des = hauteur * largeur;
 
-        public De[,] Plateau_de_jeu
+        this.des = new List<De>();
+        for (int i = 0; i < nb_des; i++)
         {
-            get { return plateau_de_jeu; }
-            set { plateau_de_jeu = value; }
+            De de = new De();
+            de.DefinirLettres();
+            des.Add(de);
         }
 
-        /// <summary>
-        /// Constructeur du plateau, initialise les dimensions, les dés et le premier plateau.
-        /// </summary>
-        /// <param name="hauteur">Hauteur du plateau</param>
-        /// <param name="largeur">Largeur du plateau</param>
-        public Plateau(int hauteur, int largeur)
+        this.plateau_de_jeu = new De[hauteur, largeur];
+        this.dico = new Dictionnaire(langue);
+    }
+
+    /// <summary>
+    /// Méthode qui permet de créer le plateau en tirant les 16 faces des dés
+    /// </summary>
+    public void CreerPlateau()
+    {
+        List<De> destemp = new List<De>();
+        destemp.AddRange(des);
+        Random random = new Random();
+        for (int i = 0; i < hauteur; i++)
         {
-            this.hauteur = hauteur;
-            this.largeur = largeur;
-            int nb_des = hauteur * largeur;
-
-            this.des = new List<De>();
-            for (int i = 0; i < nb_des; i++)
+            for (int j = 0; j < largeur; j++)
             {
-                De de = new De();
-                de.DefinirLettres();
-                des.Add(de);
+                int k = random.Next(destemp.Count());
+                plateau_de_jeu[i, j] = destemp[k];
+                destemp.RemoveAt(k);
             }
-
-            this.plateau_de_jeu = new De[hauteur, largeur];
-        }
-
-        /// <summary>
-        /// Méthode qui permet de créer le plateau en tirant les 16 faces des dés
-        /// </summary>
-        public void CreerPlateau()
-        {
-            List<De> destemp = new List<De>();
-            destemp.AddRange(des);
-            Random random = new Random();
-            for (int i = 0; i < hauteur; i++)
-            {
-                for (int j = 0; j < largeur; j++)
-                {
-                    int k = random.Next(destemp.Count());
-                    plateau_de_jeu[i, j] = destemp[k];
-                    destemp.RemoveAt(k);
-                }
-            }
-        }
-
-
-        /// <summary>
-        /// Méthode qui permet d'afficher le plateau de jeu
-        /// </summary>
-        /// <returns></returns>
-        public string toString()
-        {
-            string texte = "";
-            for (int i=0; i<hauteur;i++)
-            {
-                for (int j =0; j<largeur;j++)
-                {
-                    texte += plateau_de_jeu[i, j].Lance().Valeur+" ";
-                }
-                texte += "\n";
-            }
-            return texte;
         }
     }
+    public bool Test_Plateau(string mot,int index=0)
+    {
+        bool r = true;
+        if (!dico.RechDicoRecursif(mot))
+        {
+            r = false;
+        }
+        else
+        {
+            bool[,] visite = new bool[this.plateau_de_jeu.GetLength(0), this.plateau_de_jeu.GetLength(1)];
+            for (int i = 0; i < this.plateau_de_jeu.GetLength(0); i++)
+            {
+                for(int j = 0; j < this.plateau_de_jeu.GetLength(1); j++)
+                {
+                    if (plateau_de_jeu[i, j].FaceVisible.Valeur == mot[0])
+                    {
+                        if(MotExistant(mot, index, i, j,visite))
+                        {
+                            r = true;
+                        }
+                    }
+                }
+            }
+        }
+        return r;
+    }
+    public bool MotExistant(string mot,int index,int i,int j, bool[,]visite)
+    {
+        if (index == mot.Length - 1)
+        {
+            return true;
+        }
+        else
+        {
+            if (i < 0 || j < 0 || i >= this.plateau_de_jeu.GetLength(0) || j >= this.plateau_de_jeu.GetLength(1) || this.plateau_de_jeu[i, j].FaceVisible.Valeur != mot[index] || visite[i,j])
+            {
+                return false;
+            }
+            else
+            {
+                visite[i,j]=true;
+                foreach(var(mouvi,mouvj) in new[] { (-1, 0),(1,0),(0,-1),(0,1),(-1,-1) })
+                {
+                    if (MotExistant(mot, index + 1, i + mouvi, j + mouvj, visite))
+                    {
+                        return true;
+                    }
+                }
+                visite[i,j]=false;
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Méthode qui permet d'afficher le plateau de jeu
+    /// </summary>
+    /// <returns></returns>
+    public string toString()
+    {
+        string texte = "";
+        for (int i = 0; i < hauteur; i++)
+        {
+            for (int j = 0; j < largeur; j++)
+            {
+                texte += plateau_de_jeu[i, j].Lance().Valeur + " ";
+            }
+            texte += "\n";
+        }
+        return texte;
+    }
+}
 }
