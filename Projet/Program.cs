@@ -21,7 +21,7 @@ namespace Projet
             //Console.WriteLine(b.toString(8, 'a'));
             //Console.WriteLine(b.RechDicoRecursif("tuer"));
 
-            Plateau plateau = new Plateau(4, 4); 
+            Plateau plateau = new Plateau(4, 4,"test"); 
             plateau.CreerPlateau();
             Console.WriteLine(plateau.toString());
         }
