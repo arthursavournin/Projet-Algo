@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,12 +35,12 @@ namespace Projet
         this.hauteur = hauteur;
         this.largeur = largeur;
         int nb_des = hauteur * largeur;
-
+        Random random = new Random();
         this.des = new List<De>();
         for (int i = 0; i < nb_des; i++)
         {
             De de = new De();
-            de.DefinirLettres();
+            de.DefinirLettres(random);
             des.Add(de);
         }
 
@@ -51,14 +51,14 @@ namespace Projet
     /// <summary>
     /// Méthode qui permet de créer le plateau en tirant les 16 faces des dés
     /// </summary>
-    public void CreerPlateau()
+    public void CreerPlateau(Random random)
     {
         List<De> destemp = new List<De>();
         destemp.AddRange(des);
-        Random random = new Random();
+        
         for (int k = 0; k < destemp.Count; k++)
         {
-            destemp[k].FaceVisible = destemp[k].Lance();
+            destemp[k].FaceVisible = destemp[k].Lance(random);
         }
         for (int i = 0; i < hauteur; i++)
         {
