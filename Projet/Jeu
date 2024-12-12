@@ -1,0 +1,92 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ProjetFinal
+{
+    internal class Jeu
+    {
+        static string AfficherDesPlateau(Plateau plateau)
+        {
+            string texte = "";
+            for (int i = 0; i < plateau.Des.Count(); i++)
+            {
+                texte += plateau.Des[i].toString() + "\n";
+            }
+            return texte;
+        }
+        /// <summary>
+        /// Permet de choisir le nombre de tours pour la partie
+        /// </summary>
+        static void NombresTours()
+        {
+            int tours = -1;
+            while(tours<1||tours>5)
+            {
+                Console.WriteLine("Combien de tours de jeu souhaitez-vous effectuer ? (entre 1 et 5)");
+                if (int.TryParse(Console.ReadLine(), out tours))
+                {
+                }
+                else
+                {
+                    Console.WriteLine("Veuillez entrer un nombre entre 1 et 5");
+                    Console.WriteLine();
+                }
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            //De de = new De();
+            //de.DefinirLettres();
+            //Console.WriteLine(de.toString());
+            //Console.WriteLine(de.Lance().Valeur);
+
+            //Dictionnaire b = new Dictionnaire("test");
+            //Console.WriteLine(b.Dico());
+            //Console.WriteLine(b.toString(8, 'a'));
+            //Console.WriteLine(b.RechDicoRecursif("tuer"));
+            int choix = -10;
+            while (choix != 1 && choix != 2)
+            {
+                Console.WriteLine("Bienvenue en jeu");
+                Console.WriteLine("1/Démarrer une partie\n2/Quitter le jeu");
+                if(int.TryParse(Console.ReadLine(),out choix))
+                {
+                    switch (choix)
+                    {
+                        case 1:
+                            
+                            NombresTours();
+                            //tailleduplateau()
+                            //languechoisi()
+                            //fonctionquidonnelamainaujoueur()
+
+                            Plateau plateau = new Plateau(4, 4, "français");
+                            Random random = new Random();
+                            plateau.CreerPlateau(random);
+                            Console.WriteLine(AfficherDesPlateau(plateau));
+                            Console.WriteLine(plateau.AfficherPlateau());
+                            string mot = Console.ReadLine();
+                            Console.WriteLine(plateau.Test_Plateau(mot));
+                            Console.ReadKey();
+                            break;
+                        case 2:
+                            break;
+                        default:
+                            Console.WriteLine("Votre entrée n'est pas entrée 1 ou 2");
+                            Console.WriteLine();
+                            break;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Veuillez entrer un nombre valide (1 ou 2)");
+                    Console.WriteLine();
+                }
+            }
+        }
+    }
+}
