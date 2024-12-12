@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,84 +7,68 @@ using System.Threading.Tasks;
 
 namespace Projet
 {
-    internal class Lettre
+    internal class Joueur
     {
-        public char valeur;
-        public int poids;
-        public int nombre;
+        private string nom;
+        private int score;
+        private List<string> mots;
 
-        public char Valeur
+
+        public Joueur(string nom)
         {
-            get { return valeur; }
-            set { valeur = value; }
+            this.nom = nom;
+            this.score = 0;
+            this.mots = new List<string>();
         }
-        public int Nombre
+
+
+
+        public int Score
         {
-            get { return nombre; }
-            set { nombre = value; }
+            get { return score; }
+            set { score = value; }
         }
-        public int Poids
+
+        public string Nom
         {
-            get { return poids; }
-            set { poids = value; }
+            get { return nom; }
         }
-        public Lettre(char valeur, int poids, int nombre)
+
+        public List<string> Mots
         {
-            this.valeur = valeur;
-            this.poids = poids;
-            this.nombre = nombre;
+            get { return mots; }
+        }
+
+
+        /// <summary>
+        /// Méthode qui vérifie si le joueur à déja trouvé le mot 
+        /// </summary>
+        /// <param name="mot">Mot que le joueur vient de trouvé</param>
+        /// <returns>Vrai s'il a déjà trouvé ce mot ou faux sinon</returns>
+        public bool Contain(string mot)
+        {
+            return (mots.Contains(mot));
         }
 
         /// <summary>
-        /// Méthode qui crée un tableau de Lettres à partir du fichier texte
+        /// Ajouter le mot à la liste des mots déja trouvés par le joueur
         /// </summary>
-        /// <returns></returns>
-        public static Lettre[] LettresDispo()
+        /// <param name="mot">Mot trouvé par le joueur</param>
+
+        public void AddMot(string mot)
         {
-            Lettre[] lettres = new Lettre[26];
-            string[] lignes = File.ReadAllLines("Lettres.txt");
-            for (int i = 0; i < lignes.Length; i++)
-            {
-                string[] ligne = lignes[i].Split(';');
-
-                char valeur = Convert.ToChar(ligne[0]);
-                int poids = Convert.ToInt32(ligne[1]);
-                int nombre = Convert.ToInt32(ligne[2]);
-
-                lettres[i] = new Lettre(valeur, poids, nombre);
-            }
-            return lettres;
+            mots.Add(mot);
         }
 
-        /// <summary>
-        /// Méthode pour obtenir une liste de lettres avec leur fréquence
-        /// </summary>
-        /// <returns>lettres (un char[])</returns>
-        public static List<Lettre> ObtenirLettre()
+
+        public string toString()
         {
-            Lettre[] lettresdispo = LettresDispo();
-            List<Lettre> lettres = new List<Lettre>();
-            for (int j = 0; j < lettresdispo.Length; j++)
+            string texte = "Nom : " + nom + "\nScore : " + score + "\nMots trouvés : \n";
+            for (int i = 0; i < mots.Count; i++)
             {
-                int n = lettresdispo[j].nombre;
-                while (n > 0)
-                {
-                    lettres.Add(lettresdispo[j]);
-                    n--;
-                }
+                texte += mots[i] + "\n";
             }
-            return lettres;
-        }
-        /// <summary>
-        /// Cette méthode permet d'afficher le tableau de caractère
-        /// </summary>
-        /// <param name="l"></param>
-        public static void Affichertab(Lettre[] l)//pour vérifier que le tableau retourner par ObtenirLettre est correct
-        {
-            for (int i = 0; i < l.Length; i++)
-            {
-                Console.Write(l[i].Valeur + " ");
-            }
+            return texte;
         }
     }
 }
