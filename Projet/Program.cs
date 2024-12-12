@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,9 +29,9 @@ namespace Projet
          //Console.WriteLine(b.Dico());
          //Console.WriteLine(b.toString(8, 'a'));
          //Console.WriteLine(b.RechDicoRecursif("tuer"));
-
+         Random random = new Random();
          Plateau plateau = new Plateau(4, 4, "français");
-         plateau.CreerPlateau();
+         plateau.CreerPlateau(random);
          Console.WriteLine(AfficherDesPlateau(plateau));
          Console.WriteLine(plateau.AfficherPlateau());
          string mot = Console.ReadLine();
