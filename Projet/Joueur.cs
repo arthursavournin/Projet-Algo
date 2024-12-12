@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,34 +9,34 @@ namespace Projet
 {
     internal class Joueur
     {
-        private string nom;
-        private int score;
-        private List<string> mots;
+        private string prenom;
+        private int points;
+        private List<string> mots_trouvés;
 
 
         public Joueur(string nom)
         {
-            this.nom = nom;
-            this.score = 0;
-            this.mots = new List<string>();
+            this.prenom = nom;
+            this.points = 0;
+            this.mots_trouvés = new List<string>();
         }
 
 
 
-        public int Score
+        public int Points
         {
-            get { return score; }
-            set { score = value; }
+            get { return points; }
+            set { points = value; }
         }
 
-        public string Nom
+        public string Prenom
         {
-            get { return nom; }
+            get { return prenom; }
         }
 
-        public List<string> Mots
+        public List<string> Mots_trouvés
         {
-            get { return mots; }
+            get { return mots_trouvés; }
         }
 
 
@@ -47,7 +47,7 @@ namespace Projet
         /// <returns>Vrai s'il a déjà trouvé ce mot ou faux sinon</returns>
         public bool Contain(string mot)
         {
-            return (mots.Contains(mot));
+            return (mots_trouvés.Contains(mot));
         }
 
         /// <summary>
@@ -57,16 +57,16 @@ namespace Projet
 
         public void AddMot(string mot)
         {
-            mots.Add(mot);
+            mots_trouvés.Add(mot);
         }
 
 
         public string toString()
         {
-            string texte = "Nom : " + nom + "\nScore : " + score + "\nMots trouvés : \n";
+            string texte = "Nom : " + prenom + "\nScore : " + points + "\nMots trouvés : \n";
             for (int i = 0; i < mots.Count; i++)
             {
-                texte += mots[i] + "\n";
+                texte += mots_trouvés[i] + "\n";
             }
             return texte;
         }
