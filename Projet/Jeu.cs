@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,32 +11,14 @@ namespace Projet
 {
     internal class Jeu
     {
-        //static string AfficherDesPlateau(Plateau plateau)
-        //{
-        //    string texte = "";
-        //    for (int i = 0; i < plateau.Des.Count(); i++)
-        //    {
-        //        texte += plateau.Des[i].toString() + "\n";
-        //    }
-        //    return texte;
-        //}
 
-        //De de = new De();
-        //de.DefinirLettres();
-        //Console.WriteLine(de.toString());
-        //Console.WriteLine(de.Lance().Valeur);
-
-        //Dictionnaire b = new Dictionnaire("test");
-        //Console.WriteLine(b.Dico());
-        //Console.WriteLine(b.toString(8, 'a'));
-        //Console.WriteLine(b.RechDicoRecursif("tuer"));
-
-
+        private static Stopwatch chrono = new Stopwatch();
+        private static int limitetemps = 60;
 
         /// <summary>
         /// Permet de choisir le nombre de tours pour la partie
         /// </summary>
-        public void NombresTours()
+        public int NombresTours()
         {
             int tours = -1;
             while (tours < 1 || tours > 5)
@@ -50,13 +33,14 @@ namespace Projet
                     Console.WriteLine();
                 }
             }
+            return tours;
         }
 
         /// <summary>
         /// Méthode qui demande à l'utilisateur la taille de plateau souhaitée
         /// </summary>
         /// <returns>La taille du tableau</returns>
-        public  int tailleduplateau()
+        public int tailleduplateau()
         {
             int taille = -1;
             while (taille < 4 || taille > 16)
@@ -73,11 +57,15 @@ namespace Projet
             return taille;
         }
 
+        /// <summary>
+        /// Méthode qui demande la langue du jeu
+        /// </summary>
+        /// <returns>La langue du jeu</returns>
         public string languechoisi()
         {
             string langue = "français";
             int n = 0;
-            while (n<1 || n>2)
+            while (n < 1 || n > 2)
             {
                 Console.WriteLine("\nSéléctionnez la langue du jeu :\n1/Français\n2/Anglais");
                 if (int.TryParse(Console.ReadLine(), out n))
@@ -94,11 +82,61 @@ namespace Projet
         }
 
         /// <summary>
+        /// Méthode qui créer les 2 joueurs
+        /// </summary>
+        /// <returns>Les deux joueurs</returns>
+        public (Joueur, Joueur) nomsjoueurs()
+        {
+            Console.WriteLine("\nNom joueur 1 :");
+            string nom1 = Console.ReadLine();
+            Console.WriteLine("\nNom joueur 2 :");
+            string nom2 = Console.ReadLine();
+            Joueur joueur1 = new Joueur(nom1);
+            Joueur joueur2 = new Joueur(nom2);
+            return (joueur1, joueur2);
+        }
+
+        /// <summary>
+        /// Méthode qui choisit qui commence en premier
+        /// </summary>
+        /// <param name="random">Permet de choisir aléatoirement qui commence</param>
+        /// <returns>0 (joueur 1 commence) ou 1</returns>
+        public int mainjoueur(Random random)
+        {
+            int debut = random.Next(0, 2);
+            return debut;
+        }
+
+        /// <summary>
+        /// Méthode qui calcule le nombre de points que rapporte un mot (en fonction des lettres et de sa longueur)
+        /// </summary>
+        /// <param name="mot">Mot recherché</param>
+        /// <returns>Le nombre de points que rapporte le mot</returns>
+        public int NbPointsMot(string mot)
+        {
+            int nbpts = 0;
+            for (int i=0; i < mot.Length;)
+            {
+                Lettre lettre = Lettre.RechercheLettre(mot[i]);
+                nbpts += lettre.Poids;
+            }
+            if (mot.Length>=8)
+            {
+                nbpts = nbpts * 3;
+            }
+            else if (mot.Length>=5)
+            {
+                nbpts += nbpts *2;
+            }
+            return nbpts;
+        }
+
+        /// <summary>
         /// Méthode principale qui fait tourner le jeu
         /// </summary>
         public void lancerjeu()
         {
-            
+            Random random = new Random();
             int choix = -10;
             Console.WriteLine("Bienvenue en jeu");
             while (choix != 1 && choix != 2)
@@ -110,29 +148,198 @@ namespace Projet
                     switch (choix)
                     {
                         case 1:
-
-                            NombresTours();
-                            int taille = tailleduplateau();
+                            Console.Clear();
                             string langue = languechoisi();
-                            //fonctionquidonnelamainaujoueur()
+                            Console.Clear();
+                            (Joueur joueur1, Joueur joueur2) = nomsjoueurs();
+                            Console.Clear();
+                            int nbtours=NombresTours();
+                            Console.Clear();
+                            int taille = tailleduplateau();
+                            Console.Clear();
+                            
 
-                            Plateau plateau = new Plateau(taille,taille , langue);
-                            Random random = new Random();
-                            plateau.CreerPlateau(random);
-                            //Console.WriteLine(AfficherDesPlateau(plateau));
-                            Console.WriteLine(plateau.AfficherPlateau());
-                            while(true)
+
+                            Plateau plateau = new Plateau(taille, taille, langue);
+
+                            int debut=mainjoueur(random);
+
+                            if (debut ==0)
                             {
-                                string mot = "a";
-                                while(mot.Length<2)
+                                for (int tours =1; tours <= nbtours+1; tours++)
                                 {
-                                    Console.WriteLine("\nVeuillez entrer un mot (minimum 2 lettres)");
-                                    mot = Console.ReadLine();
+                                    if (tours==nbtours+1)
+                                    {
+                                        //resumé partie
+                                    }
+                                    else
+                                    {
+                                        for (int j = 1; j <= 2; j++)
+                                        {
+                                            Console.WriteLine("Manche " + tours);
+                                            Console.WriteLine("Tour du joueur " + j + "\n");
+                                            plateau.CreerPlateau(random);
+                                            Console.WriteLine(plateau.AfficherPlateau());
+                                            Console.WriteLine("\nVeuillez entrer des mots (minimum 2 lettres)\n");
+                                            List<string> motsdutours=new List<string>();
+                                            int pointsdutours = 0;
+
+                                            chrono.Start();
+
+                                            while (chrono.Elapsed.TotalSeconds < limitetemps)
+                                            {
+                                                string mot = "a";
+                                                while (mot.Length < 2)
+                                                {
+                                                    mot = Console.ReadLine().ToLower();
+                                                    if (mot.Length < 2)
+                                                    {
+                                                        Console.WriteLine("Mot trop court\n");
+                                                    }
+                                                }
+                                                if(!plateau.Test_Plateau(mot))
+                                                {
+                                                    Console.WriteLine("Mot pas valide");
+                                                }
+                                                else
+                                                {
+                                                    Console.WriteLine("PSG");
+                                                    if (j == 1)
+                                                    {
+                                                        if (joueur1.Contain(mot))
+                                                        {
+                                                            Console.WriteLine("Le mot "+mot+" a déjà été trouvé");
+                                                        }
+                                                        else
+                                                        {
+                                                            int nbpoints = NbPointsMot(mot);
+                                                            Console.WriteLine("Mot valide ! " + mot + " vous rapporte" + nbpoints + " points");
+                                                            joueur1.AddMot(mot);
+                                                            motsdutours.Add(mot);
+                                                            pointsdutours += nbpoints;
+                                                            joueur1.Score += nbpoints;
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        if (joueur2.Contain(mot))
+                                                        {
+                                                            Console.WriteLine("Le mot " + mot + " a déjà été trouvé");
+                                                        }
+                                                        else
+                                                        {
+                                                            int nbpoints = NbPointsMot(mot);
+                                                            Console.WriteLine("Mot valide ! " + mot + " vous rapporte" + nbpoints + " points");
+                                                            joueur2.AddMot(mot);
+                                                            motsdutours.Add(mot);
+                                                            pointsdutours += nbpoints;
+                                                            joueur2.Score += nbpoints;
+                                                        }
+                                                    }
+                                                }
+                                                
+                                            }
+                                            Console.WriteLine("Temps écoulé !\nPendeant ce tour vous avez trouvé "+pointsdutours+" mots : ");
+                                            for (int i = 0; i < motsdutours.Count;i++)
+                                            {
+                                                Console.Write(motsdutours[i]+" ");
+                                            }
+                                            Console.WriteLine("\nEt vous avez gagné " + pointsdutours + " points");
+                                            chrono.Reset();
+                                        }
+                                    }
+                                    
+                                    
                                 }
-                                Console.WriteLine(plateau.Dico.RechDicoRecursif(mot)); 
-                                Console.WriteLine(plateau.Test_Plateau(mot));
                             }
-                            Console.ReadKey();
+                            else
+                            {
+                                for (int tours = 1; tours <= nbtours + 1; tours++)
+                                {
+                                    if (tours == nbtours + 1)
+                                    {
+                                        //resumé partie
+                                    }
+                                    else
+                                    {
+                                        for (int j = 2; j >= 1; j--)
+                                        {
+                                            Console.WriteLine("Manche " + tours);
+                                            Console.WriteLine("Tour du joueur " + j + "\n");
+                                            plateau.CreerPlateau(random);
+                                            Console.WriteLine(plateau.AfficherPlateau());
+                                            Console.WriteLine("\nVeuillez entrer des mots (minimum 2 lettres)");
+                                            List<string> motsdutours = new List<string>();
+                                            int pointsdutours = 0;
+
+                                            chrono.Start();
+
+                                            while (chrono.Elapsed.TotalSeconds < limitetemps)
+                                            {
+                                                string mot = "a";
+                                                while (mot.Length < 2)
+                                                {
+                                                    Console.WriteLine();
+                                                    mot = Console.ReadLine().ToLower();
+                                                    if (mot.Length < 2)
+                                                    {
+                                                        Console.WriteLine("Mot trop court");
+                                                    }
+                                                }
+                                                if (!plateau.Test_Plateau(mot))
+                                                {
+                                                    Console.WriteLine("Mot pas valide");
+                                                }
+                                                else
+                                                {
+                                                    if (j == 2)
+                                                    {
+                                                        if (joueur1.Contain(mot))
+                                                        {
+                                                            Console.WriteLine("Le mot " + mot + " a déjà été trouvé");
+                                                        }
+                                                        else
+                                                        {
+                                                            int nbpoints = NbPointsMot(mot);
+                                                            Console.WriteLine("Mot valide ! " + mot + " vous rapporte" + nbpoints + " points");
+                                                            joueur1.AddMot(mot);
+                                                            motsdutours.Add(mot);
+                                                            pointsdutours += nbpoints;
+                                                            joueur1.Score += nbpoints;
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        if (joueur2.Contain(mot))
+                                                        {
+                                                            Console.WriteLine("Le mot " + mot + " a déjà été trouvé");
+                                                        }
+                                                        else
+                                                        {
+                                                            int nbpoints = NbPointsMot(mot);
+                                                            Console.WriteLine("Mot valide ! " + mot + " vous rapporte" + nbpoints + " points");
+                                                            joueur2.AddMot(mot);
+                                                            motsdutours.Add(mot);
+                                                            pointsdutours += nbpoints;
+                                                            joueur2.Score += nbpoints;
+                                                        }
+                                                    }
+                                                }
+
+                                            }
+                                            Console.WriteLine("Temps écoulé !\nPendeant ce tour vous avez trouvé " + pointsdutours + " mots : ");
+                                            for (int i = 0; i < motsdutours.Count; i++)
+                                            {
+                                                Console.Write(motsdutours[i] + " ");
+                                            }
+                                            Console.WriteLine("\nEt vous avez gagné " + pointsdutours + " points");
+                                            chrono.Reset();
+                                        }
+                                    }
+
+
+                                }
+                            }
                             break;
                         case 2:
                             break;
@@ -144,8 +351,7 @@ namespace Projet
                 }
                 else
                 {
-                    Console.WriteLine("\nVeuillez entrer un nombre valide (1 ou 2)");
-                    Console.WriteLine();
+                    Console.WriteLine("\nVeuillez entrer un nombre valide (1 ou 2)\n");
                 }
             }
         }

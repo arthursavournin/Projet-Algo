@@ -12,3 +12,10 @@ C:\Users\asavo\Desktop\Projet\bin\Debug\Projet.exe
 C:\Users\asavo\Desktop\Projet\bin\Debug\Projet.pdb
 C:\Users\asavo\Desktop\Projet\obj\Debug\Projet.exe
 C:\Users\asavo\Desktop\Projet\obj\Debug\Projet.pdb
+\\Mac\Home\Desktop\Projet\bin\Debug\Projet.exe.config
+\\Mac\Home\Desktop\Projet\bin\Debug\Projet.exe
+\\Mac\Home\Desktop\Projet\bin\Debug\Projet.pdb
+\\Mac\Home\Desktop\Projet\obj\Debug\Projet.csproj.AssemblyReference.cache
+\\Mac\Home\Desktop\Projet\obj\Debug\Projet.csproj.CoreCompileInputs.cache
+\\Mac\Home\Desktop\Projet\obj\Debug\Projet.exe
+\\Mac\Home\Desktop\Projet\obj\Debug\Projet.pdb

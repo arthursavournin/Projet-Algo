@@ -18,7 +18,7 @@ namespace Projet
         {
            this.nom = nom;
            this.score = 0;
-            this.mots = new List<string>();
+           this.mots = new List<string>();
         }
 
 
@@ -37,6 +37,7 @@ namespace Projet
         public List<string> Mots
         {
             get { return mots; }
+            set {  mots = value; }
         }
 
 
@@ -60,7 +61,10 @@ namespace Projet
             mots.Add(mot);
         }
 
-
+        /// <summary>
+        /// Méthode qui décrit le joueur (nom, score, mots trouvés)
+        /// </summary>
+        /// <returns></returns>
         public string toString()
         {
             string texte = "Nom : " + nom + "\nScore : " + score + "\nMots trouvés : \n";

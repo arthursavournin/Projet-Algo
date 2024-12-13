@@ -57,6 +57,26 @@ namespace Projet
         }
 
         /// <summary>
+        /// Méthode qui créer une Lettre pour une lettre (caractère)
+        /// </summary>
+        /// <param name="c">lettre (caractère) recherchée</param>
+        /// <returns>Une Lettre poir la lettre (caractère) d'entré</returns>
+        public static Lettre RechercheLettre(char c)
+        {
+            Lettre[] lettresdispo = Lettre.LettresDispo(); 
+            Lettre lettre= null;
+            for (int i = 0; i < lettresdispo.Length; i++)
+            {
+                if (char.ToLower(lettresdispo[i].Valeur) == c) 
+                {
+                    lettre = lettresdispo[i];  
+                    break;  
+                }
+            }
+            return lettre;
+        }
+
+        /// <summary>
         /// Méthode pour obtenir une liste de lettres avec leur fréquence
         /// </summary>
         /// <returns>lettres (un char[])</returns>
