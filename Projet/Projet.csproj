@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="De.cs" />
     <Compile Include="Dictionnaire.cs" />
+    <Compile Include="Jeu.cs" />
     <Compile Include="Joueur.cs" />
     <Compile Include="Lettre.cs" />
     <Compile Include="Plateau.cs" />
