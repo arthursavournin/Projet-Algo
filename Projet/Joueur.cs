@@ -67,12 +67,58 @@ namespace Projet
         /// <returns></returns>
         public string toString()
         {
-            string texte = "Nom : " + nom + "\nScore : " + score + "\nMots trouvés : \n";
+            string texte = "Nom : " + nom +  "\nMots trouvés : \n";
             for (int i = 0; i < mots.Count; i++)
             {
-                texte += mots[i] + "\n";
+                texte += mots[i] + " ";
             }
+            texte += "\nScore : " + score;
             return texte;
         }
+
+        /// <summary>
+        /// Opérateur = pour comparer 2 joueurs en fonction de leur score
+        /// </summary>
+        /// <param name="j1">Joueur 1</param>
+        /// <param name="j2">Joueur 2</param>
+        /// <returns>True s'ils ont le même score, false sinon</returns>
+        public static bool operator ==(Joueur j1, Joueur j2)
+        {
+            return j1.score == j2.score;
+        }
+
+        /// <summary>
+        /// Opérateur != pour comparer 2 joueurs en fonction de leur score
+        /// </summary>
+        /// <param name="j1">Joueur 1</param>
+        /// <param name="j2">Joueur 2</param>
+        /// <returns>True s'ils n'ont pas le même score, false sinon</returns>
+        public static bool operator !=(Joueur j1, Joueur j2)
+        {
+            return !(j1 == j2);
+        }
+
+        /// <summary>
+        /// Opérateur > pour comparer 2 joueurs en fonction de leur score
+        /// </summary>
+        /// <param name="j1">Joueur 1</param>
+        /// <param name="j2">Joueur 2</param>
+        /// <returns>True si le joueur 1 a un meilleur score que le 2e joueur, false sinon</returns>
+        public static bool operator >(Joueur j1, Joueur j2)
+        {
+            return j1.score > j2.score;
+        }
+
+        /// <summary>
+        /// Opérateur < pour comparer 2 joueurs en fonction de leur score
+        /// </summary>
+        /// <param name="j1">Joueur 1</param>
+        /// <param name="j2">Joueur 2</param>
+        /// <returns>True si le joueur 1 a un moins bon score que le 2e joueur, false sinon</returns>
+        public static bool operator <(Joueur j1, Joueur j2)
+        {
+            return j1.score < j2.score;
+        }
+
     }
 }
