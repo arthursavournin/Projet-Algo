@@ -265,7 +265,9 @@ namespace Projet
                                 {
                                     if (tours==nbtours+1)
                                     {
-                                        resumepartie(joueur1, joueur2 );
+                                        resumepartie(joueur1, joueur2);
+                                        Console.Clear();
+                                        //fonction nuage de mots (fini la fonction avec un readkey)
                                         Console.Clear();
                                         goto début;
                                     }
@@ -307,6 +309,8 @@ namespace Projet
                                     if (tours == nbtours + 1)
                                     {
                                         resumepartie(joueur1, joueur2);
+                                        Console.Clear();
+                                        //fonction nuage de mots (fini la fonction avec un readkey)
                                         Console.Clear();
                                         goto début;
                                     }
