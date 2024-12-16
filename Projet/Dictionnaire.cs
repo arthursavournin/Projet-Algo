@@ -94,7 +94,7 @@ namespace Projet
         //Méthode 3 : On trie la liste par un trie fusion (meilleure compléxité)
 
         /// <summary>
-        /// Création du dictionnaire (que l'on trie directement) en fonction de la langue souhaitée
+        /// Constructeur du dictionnaire (que l'on trie directement) en fonction de la langue souhaitée
         /// </summary>
         /// <param name="langue">Langue du dictionnaire</param>
         public Dictionnaire(string langue)

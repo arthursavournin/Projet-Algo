@@ -7,13 +7,16 @@ using System.Threading.Tasks;
 
 namespace Projet
 {
-    internal class Joueur
+    public class Joueur
     {
         private string nom;
         private int score;
         private List<string> mots;
 
-
+        /// <summary>
+        /// Constructeur du joueur.On lui associé un nom, un score et une liste des mots trouvés
+        /// </summary>
+        /// <param name="nom">Nom du joueur</param>
         public Joueur(string nom)
         {
            this.nom = nom;
@@ -52,13 +55,22 @@ namespace Projet
         }
 
         /// <summary>
-        /// Ajouter le mot à la liste des mots déja trouvés par le joueur
+        /// Méthode qui ajoute un mot à la liste des mots déja trouvés par le joueur
         /// </summary>
-        /// <param name="mot">Mot trouvé par le joueur</param>
+        /// <param name="mot">Mot à ajouter</param>
 
         public void AddMot(string mot)
         {
             mots.Add(mot);
+        }
+
+        /// <summary>
+        /// Méthode qui ajoute une liste de mots à la liste des mots déja trouvés par le joueur
+        /// </summary>
+        /// <param name="mots">Liste de mots à ajouter</param>
+        public void AddList(List<string> listemots)
+        {
+            mots.AddRange(listemots);
         }
 
         /// <summary>
@@ -76,27 +88,6 @@ namespace Projet
             return texte;
         }
 
-        /// <summary>
-        /// Opérateur = pour comparer 2 joueurs en fonction de leur score
-        /// </summary>
-        /// <param name="j1">Joueur 1</param>
-        /// <param name="j2">Joueur 2</param>
-        /// <returns>True s'ils ont le même score, false sinon</returns>
-        public static bool operator ==(Joueur j1, Joueur j2)
-        {
-            return j1.score == j2.score;
-        }
-
-        /// <summary>
-        /// Opérateur != pour comparer 2 joueurs en fonction de leur score
-        /// </summary>
-        /// <param name="j1">Joueur 1</param>
-        /// <param name="j2">Joueur 2</param>
-        /// <returns>True s'ils n'ont pas le même score, false sinon</returns>
-        public static bool operator !=(Joueur j1, Joueur j2)
-        {
-            return !(j1 == j2);
-        }
 
         /// <summary>
         /// Opérateur > pour comparer 2 joueurs en fonction de leur score
@@ -120,5 +111,23 @@ namespace Projet
             return j1.score < j2.score;
         }
 
+        /// <summary>
+        /// Méthode qui compte le nombre de fois qu'un mot a été trouvé par le joueur
+        /// </summary>
+        /// <param name="mot"></param>
+        /// <param name="mots"></param>
+        /// <returns></returns>
+        public int CompterOccurrences(string mot)
+        {
+            int c = 0;
+            for (int i = 0; i < mots.Count; i++)
+            {
+                if (mots[i] == mot)
+                {
+                    c++;
+                }
+            }
+            return c;
+        }
     }
 }

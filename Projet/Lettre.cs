@@ -28,6 +28,13 @@ namespace Projet
             get { return poids; }
             set { poids = value; }
         }
+
+        /// <summary>
+        /// Constructeur de lettre. On lui associe un caractère, un poind et une fréquence
+        /// </summary>
+        /// <param name="valeur">Caractère de la lettre</param>
+        /// <param name="poids">Poid de la lettre</param>
+        /// <param name="nombre">Fréquence d'apparition de la lettre</param>
         public Lettre(char valeur, int poids, int nombre)
         {
             this.valeur = valeur;

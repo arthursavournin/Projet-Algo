@@ -12,6 +12,9 @@ namespace Projet
         private Lettre[] faces;
         private Lettre faceVisible;
 
+        /// <summary>
+        /// Constructeur du dé. On associe une lettre à chaque face
+        /// </summary>
         public De()
         {
             this.faces = new Lettre[6];

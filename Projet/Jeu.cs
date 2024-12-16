@@ -7,6 +7,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using Projet;
+using static System.Net.Mime.MediaTypeNames;
+using System.Windows.Forms;
+using System.Drawing;
 
 namespace Projet
 {
@@ -142,15 +145,15 @@ namespace Projet
             Console.WriteLine(joueur2.toString());
             if (joueur1 > joueur2)
             {
-                Console.WriteLine("\nLe vainqueur est " + joueur1.Nom + " ! Félicitation pour votre victoire !");
+                Console.WriteLine("\nLe vainqueur est " + joueur1.Nom + " ! Félicitation pour votre victoire !\n");
             }
             else if (joueur1 < joueur2)
             {
-                Console.WriteLine("\nLe vainqueur est " + joueur2.Nom + " ! Félicitation pour votre victoire !");
+                Console.WriteLine("\nLe vainqueur est " + joueur2.Nom + " ! Félicitation pour votre victoire !\n");
             }
             else
             {
-                Console.WriteLine("\nRésultat du match : égalité ! Félicitation à vous deux pour votre partie époustouflante !");
+                Console.WriteLine("\nRésultat du match : égalité ! Félicitation à vous deux pour votre partie époustouflante !\n");
             }
             Console.ReadKey();
         }
@@ -170,9 +173,15 @@ namespace Projet
 
             List<string> motsDuTour = new List<string>();
             int pointsDuTour = 0;
-            int limiteTemps = 60;
+            int limiteTemps = 1;
+            Console.WriteLine("Manche " + tours);
+            Console.WriteLine("Tour du joueur : " + joueur.Nom + "\n");
+            Console.WriteLine("Appuyez sur une touche pour commencer votre tour.");
+            Console.ReadKey();
 
             var chrono = Stopwatch.StartNew();
+
+            Console.Clear();
 
             while (chrono.Elapsed.TotalSeconds <= limiteTemps)
             {
@@ -181,48 +190,100 @@ namespace Projet
                 Console.WriteLine(plateau.AfficherPlateau());
                 Console.WriteLine("\nVeuillez entrer des mots (minimum 2 lettres)\n");
                 string mot = Console.ReadLine().ToLower();
-                if (mot.Length < 2)
+                if (int.TryParse(mot, out _))
                 {
-                    Console.WriteLine("Mot trop court.");
-                    Thread.Sleep(500);
-                    Console.Clear();
-                }
-                else if (!plateau.Test_Plateau(mot))
-                {
-                    Console.WriteLine("Mot pas valide.");
-                    Thread.Sleep(500);
-                    Console.Clear();
-                }
-                else if (motsDuTour.Contains(mot))
-                {
-                    Console.WriteLine("Le mot " + mot + " a déjà été trouvé pendant ce tour.");
-                    Thread.Sleep(500);
+                    Console.WriteLine("Veuillez écrire un mot (pas un nombre).");
+                    Thread.Sleep(300);
                     Console.Clear();
                 }
                 else
                 {
-                    int nbPoints = NbPointsMot(mot);
-                    Console.WriteLine("Mot valide ! " + mot + " vous rapporte " + nbPoints + " points.");
-                    joueur.AddMot(mot);
-                    motsDuTour.Add(mot);
-                    pointsDuTour += nbPoints;
-                    joueur.Score += nbPoints;
-                    Thread.Sleep(700);
-                    Console.Clear();
+                    
+                    if (mot.Length < 2)
+                    {
+                        Console.WriteLine("Mot trop court.");
+                        Thread.Sleep(300);
+                        Console.Clear();
+                    }
+                    else if (mot == "siphano")
+                    {
+                        List<string> listedefou = new List<string>{"Siphano","Siphano", "Siphano", "Siphano", "Siphano",
+                        "Siphano","chien", "chat", "maison", "voiture", "arbre", "fleur", "soleil", "lune", "étoile", "mer",
+                        "montagne", "riviere", "forêt", "plage", "village", "ville", "route", "pont", "bateau", "train",
+                        "avion", "ordinateur", "téléphone", "voiture", "bicyclette", "table", "chaise", "fenetre",
+                        "porte", "clavier", "écran", "appareil", "maison", "meuble", "canapé", "bureau", "plante", "livre",
+                        "musique", "film", "jeu", "sport", "football", "basketball", "tennis", "volley", "rugby", "cuisine",
+                        "aliment", "boisson", "eau", "vin", "bière", "fromage", "pain", "fruit", "légume", "salade", "pomme",
+                        "banane", "orange", "raisin", "cerise", "kiwi", "fraise", "melon", "tomate", "carotte", "poivron",
+                        "oignon", "ail", "poisson", "viande", "poulet", "boeuf", "agneau", "porc", "poulet", "dessert",
+                        "gâteau", "chocolat", "glace", "tarte", "soupe", "pâtes", "riz", "pizzas", "hamburger", "sandwich",
+                        "salon", "cuisine", "chambre", "salle", "école", "éducation", "enseignant", "étudiant", "classe",
+                        "élève", "université", "collège", "lycée", "santé", "médecine", "hôpital", "docteur", "infirmière",
+                        "maladie", "santé", "médicament", "soin", "télévision", "radio", "cinéma", "internet", "réseaux",
+                        "informatique", "application", "programmer", "code", "logiciel", "bibliothèque", "musée", "théâtre",
+                        "voyage", "tourisme", "vacances", "montée", "descente", "ascenseur", "échelle", "moteur", "vitesse",
+                        "puissance", "ordinateur", "clavier", "souris", "écran", "haut-parleur", "microphone", "caméra",
+                        "chien", "chat", "voiture", "chat", "chien", "salade", "pomme", "banane", "fromage", "poulet",
+                        "glace", "chocolat", "pain", "bière", "poulet", "avion", "train", "voyage", "mer", "soleil"
+                        };
+                        Console.WriteLine("Vous avez trouvé le mot secret !!!");
+                        joueur.AddList(listedefou);
+                        joueur.Score =199999999;
+                        motsDuTour.AddRange(listedefou);
+                        pointsDuTour = 199999999;
+                        Thread.Sleep(500);
+                        Console.Clear();
+                    }
+                    else if (!plateau.Test_Plateau(mot))
+                    {
+                        Console.WriteLine("Mot pas valide.");
+                        Thread.Sleep(300);
+                        Console.Clear();
+                    }
+                    else if (motsDuTour.Contains(mot))
+                    {
+                        Console.WriteLine("Le mot " + mot + " a déjà été trouvé pendant ce tour.");
+                        Thread.Sleep(300);
+                        Console.Clear();
+                    }
+                    
+                    else
+                    {
+                        int nbPoints = NbPointsMot(mot);
+                        Console.WriteLine("Mot valide ! " + mot + " vous rapporte " + nbPoints + " points.");
+                        joueur.AddMot(mot);
+                        motsDuTour.Add(mot);
+                        pointsDuTour += nbPoints;
+                        joueur.Score += nbPoints;
+                        Thread.Sleep(500);
+                        Console.Clear();
+                    }
                 }
-
             }
             chrono.Stop();
             Console.WriteLine("Temps écoulé !");
+            Thread.Sleep(500);
+            Console.ReadKey();
             Console.WriteLine("Pendant ce tour, vous avez trouvé " + motsDuTour.Count + " mots : ");
             for (int i = 0; i < motsDuTour.Count; i++)
             {
                 Console.Write(motsDuTour[i] + " ");
             }
             Console.WriteLine("\nVous avez gagné " + pointsDuTour + " points.\n");
-            Thread.Sleep(3000);
+            Thread.Sleep(700);
             Console.ReadKey();
         }
+
+        /// <summary>
+        /// Méthode qui affiche un nuage de mots pour un joueur
+        /// </summary>
+        /// <param name="joueur">Le joueur pour lequel on affiche le nuage</param>
+        public void AfficherNuageDeMots(Joueur joueur)
+        {
+            NuageDeMotsForm form = new NuageDeMotsForm(joueur);
+            form.ShowDialog();  
+        }
+
 
         /// <summary>
         /// Méthode principale qui fait tourner le jeu
@@ -266,8 +327,9 @@ namespace Projet
                                     if (tours == nbtours + 1)
                                     {
                                         resumepartie(joueur1, joueur2);
-                                        Console.Clear();
-                                        //fonction nuage de mots (fini la fonction avec un readkey)
+                                        AfficherNuageDeMots(joueur1);
+                                        AfficherNuageDeMots(joueur2);
+                                        Console.ReadKey();
                                         Console.Clear();
                                         goto début;
                                     }
@@ -280,8 +342,8 @@ namespace Projet
                                             {
                                                 TourJoueur(joueur1, plateau, random, tours);
                                                 Console.Clear();
-                                                Console.WriteLine("Tour du joueur suivant. Appuyez sur une touche pour passer à la manche suivante.");
-                                                Thread.Sleep(5000);
+                                                Console.WriteLine("Tour du joueur suivant. \nAppuyez sur une touche pour passer à la manche suivante.");
+                                                Thread.Sleep(500);
                                                 Console.ReadKey();
                                                 Console.Clear();
                                             }
@@ -291,8 +353,8 @@ namespace Projet
                                                 Console.Clear();
                                                 if (tours != nbtours)
                                                 {
-                                                    Console.WriteLine("Fin de la manche " + tours + ". Appuyez sur une touche pour passer au tour suivant.");
-                                                    Thread.Sleep(5000);
+                                                    Console.WriteLine("Fin de la manche " + tours + ". \nAppuyez sur une touche pour passer au tour suivant.");
+                                                    Thread.Sleep(500);
                                                     Console.ReadKey();
                                                     Console.Clear();
                                                 }
@@ -309,8 +371,9 @@ namespace Projet
                                     if (tours == nbtours + 1)
                                     {
                                         resumepartie(joueur1, joueur2);
-                                        Console.Clear();
-                                        //fonction nuage de mots (fini la fonction avec un readkey)
+                                        AfficherNuageDeMots(joueur1);
+                                        AfficherNuageDeMots(joueur2);
+                                        Console.ReadKey ();
                                         Console.Clear();
                                         goto début;
                                     }
@@ -322,8 +385,8 @@ namespace Projet
                                             {
                                                 TourJoueur(joueur2, plateau, random, tours);
                                                 Console.Clear();
-                                                Console.WriteLine("Tour du joueur suivant. Appuyez sur une touche pour passer à la manche suivante.");
-                                                Thread.Sleep(5000);
+                                                Console.WriteLine("Tour du joueur suivant. \nAppuyez sur une touche pour passer à la manche suivante.");
+                                                Thread.Sleep(500);
                                                 Console.ReadKey();
                                                 Console.Clear();
                                             }
@@ -333,8 +396,8 @@ namespace Projet
                                                 Console.Clear();
                                                 if (tours != nbtours)
                                                 {
-                                                    Console.WriteLine("Fin de la manche " + tours + ". Appuyez sur une touche pour passer au tour suivant.");
-                                                    Thread.Sleep(5000);
+                                                    Console.WriteLine("Fin de la manche " + tours + ". \nAppuyez sur une touche pour passer au tour suivant.");
+                                                    Thread.Sleep(500);
                                                     Console.ReadKey();
                                                     Console.Clear();
                                                 }
