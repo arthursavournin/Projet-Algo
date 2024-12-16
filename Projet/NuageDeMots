@@ -8,23 +8,62 @@ using System.Drawing;
 namespace Projet
 {
     internal class NuageDeMots
+{
+    public void AfficheNuage(Joueur joueur)
     {
-        public void AfficheNuage(Joueur joueur)
+        if (joueur.Mots == null||joueur.Mots.Count()<=0)
         {
-            if (joueur.Mots == null||joueur.Mots.Count()<=0)
-            {
-                Console.WriteLine("Génération du nuage impossible : aucun mot trouvé");
-            }
-            else
-            {
-                Console.WriteLine("Nuage de mots de "+joueur.Nom+" :");
-                Random random=new Random();
-                foreach(var mot in joueur.Mots)
-                {
-                    Console.Write(mot.PadRight(random.Next(10, 20)));
-                }
-                Console.WriteLine();
-            }
+            Console.WriteLine("Génération du nuage impossible : aucun mot trouvé");
         }
+        else
+        {
+            Dictionary<string,int> frequences= new Dictionary<string,int>();
+            Console.WriteLine("Nuage de mots de "+joueur.Nom+" :");
+            Random random=new Random();
+            //comptabilisation de la fréquence des mots
+            foreach(var mot in joueur.Mots)
+            {
+                if (frequences.ContainsKey(mot))
+                {
+                    frequences[mot]++;
+                }
+                else
+                {
+                    frequences.Add(mot, 1);
+                }
+            }
+            //Créer une image
+            int largeur = 800;
+            int hauteur = 600;
+            Bitmap image=new Bitmap(largeur, hauteur);
+            Graphics g=Graphics.FromImage(image);
+            g.Clear(Color.White);
+            //Polices et couleurs 
+            Random random1 = new Random();
+            Font font;
+            Brush brush;
+            int x=10, y=10;
+            
+            foreach(var mot in frequences)
+            {
+                int taillePolice = Math.Min(50 + mot.Value * 10, 100);
+                font=new Font("Arial",taillePolice,FontStyle.Bold);
+                brush = new SolidBrush(Color.FromArgb(random.Next(256),random.Next(256),random.Next(256)));
+
+                g.DrawString(mot.Key,font,brush,x,y);
+
+                x += 150;
+                if (x >= largeur - 150)
+                {
+                    x = 10;
+                    y += 80;
+                }
+            }
+            image.Save("NuageDeMots_" + joueur.Nom + " .png");
+            Console.WriteLine("Nuage de mots généré et sauvegardé sous 'NuageDeMots_" + joueur.Nom + ".png'.");
+            image.Dispose();
+        }
+        
     }
+}
 }
