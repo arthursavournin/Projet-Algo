@@ -193,9 +193,9 @@ namespace Projet
                     Thread.Sleep(500);
                     Console.Clear();
                 }
-                else if (joueur.Contain(mot))
+                else if (motsDuTour.Contains(mot))
                 {
-                    Console.WriteLine("Le mot "+mot+" a déjà été trouvé.");
+                    Console.WriteLine("Le mot "+mot+" a déjà été trouvé pendant ce tour.");
                     Thread.Sleep(500);
                     Console.Clear();
                 }
