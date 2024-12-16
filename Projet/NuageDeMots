@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Drawing;
+
+namespace Projet
+{
+    internal class NuageDeMots
+    {
+        public void AfficheNuage(Joueur joueur)
+        {
+            if (joueur.Mots == null||joueur.Mots.Count()<=0)
+            {
+                Console.WriteLine("Génération du nuage impossible : aucun mot trouvé");
+            }
+            else
+            {
+                Console.WriteLine("Nuage de mots de "+joueur.Nom+" :");
+                Random random=new Random();
+                foreach(var mot in joueur.Mots)
+                {
+                    Console.Write(mot.PadRight(random.Next(10, 20)));
+                }
+                Console.WriteLine();
+            }
+        }
+    }
+}
