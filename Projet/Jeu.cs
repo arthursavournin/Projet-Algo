@@ -293,6 +293,9 @@ namespace Projet
                                                     Console.ReadKey();
                                                 }
                                             }
+                                            Console.WriteLine("Fin de la manche " + tours + ". Appuyez sur une touche pour passer au tour suivant.");
+                                            Console.ReadKey();
+                                            Console.Clear();
                                         }
                                     } 
                                 }
@@ -330,6 +333,9 @@ namespace Projet
                                                     Console.ReadKey();
                                                 }
                                             }
+                                            Console.WriteLine("Fin de la manche " + tours + ". Appuyez sur une touche pour passer au tour suivant.");
+                                            Console.ReadKey();
+                                            Console.Clear();
                                         }
                                     }
                                 }
