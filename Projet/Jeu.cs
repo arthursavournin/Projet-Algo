@@ -150,8 +150,9 @@ namespace Projet
         }
         else
         {
-            Console.WriteLine("\nRésultat du match : égalité ! Félicitation à vous deux pour votre partie époustouflante !\n");
+            Console.WriteLine("\nRésultat du match : égalité ! Félicitation à vous deux pour votre partie époustouflante !");
         }
+        Console.ReadKey();
     }
 
     /// <summary>
@@ -206,7 +207,7 @@ namespace Projet
                 motsDuTour.Add(mot);
                 pointsDuTour += nbPoints;
                 joueur.Score += nbPoints;
-                Thread.Sleep(1000);
+                Thread.Sleep(700);
                 Console.Clear();
             }
 
@@ -231,7 +232,7 @@ namespace Projet
         Random random = new Random();
         NuageDeMots nuage=new NuageDeMots();
         Console.WriteLine("Bienvenue en jeu !\n");
-    début:
+        début:
         int choix = -10;
         while (choix != 1 && choix != 2)
         {
@@ -275,12 +276,13 @@ namespace Projet
                                 {
                                     for (int j = 1; j <= 2; j++)
                                     {
-
+                                
                                         if (j == 1)
                                         {
                                             TourJoueur(joueur1, plateau, random, tours);
                                             Console.Clear();
-                                            Console.WriteLine("Tour du joueur suivant.");
+                                            Console.WriteLine("Tour du joueur suivant. Appuyez sur une touche pour passer à la manche suivante.");
+                                            Thread.Sleep(5000);
                                             Console.ReadKey();
                                             Console.Clear();
                                         }
@@ -290,15 +292,13 @@ namespace Projet
                                             Console.Clear();
                                             if (tours != nbtours)
                                             {
-                                                Console.WriteLine("Tour du joueur suivant.");
+                                                Console.WriteLine("Fin de la manche " + tours + ". Appuyez sur une touche pour passer au tour suivant.");
+                                                Thread.Sleep(5000);
+                                                Console.ReadKey();
                                                 Console.Clear();
-                                                Thread.Sleep(3000); Console.ReadKey();
                                             }
                                         }
                                     }
-                                    Console.WriteLine("Fin de la manche " + tours + ". Appuyez sur une touche pour passer au tour suivant.");
-                                    Console.ReadKey();
-                                    Console.Clear();
                                 }
                             }
                         }
@@ -323,7 +323,8 @@ namespace Projet
                                         {
                                             TourJoueur(joueur2, plateau, random, tours);
                                             Console.Clear();
-                                            Console.WriteLine("Tour du joueur suivant.");
+                                            Console.WriteLine("Tour du joueur suivant. Appuyez sur une touche pour passer à la manche suivante.");
+                                            Thread.Sleep(5000);
                                             Console.ReadKey();
                                             Console.Clear();
                                         }
@@ -333,15 +334,13 @@ namespace Projet
                                             Console.Clear();
                                             if (tours != nbtours)
                                             {
-                                                Console.WriteLine("Tour du joueur suivant.");
+                                                Console.WriteLine("Fin de la manche " + tours + ". Appuyez sur une touche pour passer au tour suivant.");
+                                                Thread.Sleep(5000);
+                                                Console.ReadKey();
                                                 Console.Clear();
-                                                Thread.Sleep(3000);
                                             }
                                         }
                                     }
-                                    Console.WriteLine("Fin de la manche " + tours + ". Appuyez sur une touche pour passer au tour suivant.");
-                                    Console.ReadKey();
-                                    Console.Clear();
                                 }
                             }
                         }
