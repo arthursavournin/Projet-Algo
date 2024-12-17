@@ -173,7 +173,7 @@ namespace Projet
 
             List<string> motsDuTour = new List<string>();
             int pointsDuTour = 0;
-            int limiteTemps = 1;
+            int limiteTemps = 60;
             Console.WriteLine("Manche " + tours);
             Console.WriteLine("Tour du joueur : " + joueur.Nom + "\n");
             Console.WriteLine("Appuyez sur une touche pour commencer votre tour.");
