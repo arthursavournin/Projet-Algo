@@ -189,7 +189,7 @@ namespace Projet
                 Console.WriteLine("Tour du joueur : " + joueur.Nom + "\n");
                 Console.WriteLine(plateau.AfficherPlateau());
                 Console.WriteLine("\nVeuillez entrer des mots (minimum 2 lettres)\n");
-                string mot = Console.ReadLine().ToLower();
+                string mot = Console.ReadLine().Trim().ToLower();
                 if (int.TryParse(mot, out _))
                 {
                     Console.WriteLine("Veuillez écrire un mot (pas un nombre).");
