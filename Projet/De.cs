@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Projet
 {
-    internal class De
+    public class De
     {
         private Lettre[] faces;
         private Lettre faceVisible;

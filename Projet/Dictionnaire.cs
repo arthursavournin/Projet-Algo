@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Projet
 {
-    internal class Dictionnaire
+    public class Dictionnaire
     {
         private string langue;
         private List<string> mots;
@@ -288,7 +288,7 @@ namespace Projet
         /// <param name="d">Indice de départ (0)</param>
         /// <param name="f">Indice de fin (mots.Count()-1)</param>
         /// <returns>Retourne vrai ou faux en fonction de l'appartenance du mot au dictionnaire</returns>
-        public bool RechDicoRecursif(string mot, int d = 0, int f = -1)
+        public  bool RechDicoRecursif(string mot, int d = 0, int f = -1)
         {
             if (f == -1)
             {

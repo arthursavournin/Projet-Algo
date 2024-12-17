@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Projet
 {
-    internal class Plateau
+    public class Plateau
     {
         private int hauteur;
         private int largeur;

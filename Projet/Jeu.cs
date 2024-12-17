@@ -13,12 +13,12 @@ using System.Drawing;
 
 namespace Projet
 {
-    internal class Jeu
+    public class Jeu
     {
         /// <summary>
         /// Permet de choisir le nombre de tours pour la partie
         /// </summary>
-        public int NombresTours()
+        public  int NombresTours()
         {
             int tours = -1;
             while (tours < 1 || tours > 5)
@@ -40,7 +40,7 @@ namespace Projet
         /// Méthode qui demande à l'utilisateur la taille de plateau souhaitée
         /// </summary>
         /// <returns>La taille du tableau</returns>
-        public int tailleduplateau()
+        public  int tailleduplateau()
         {
             int taille = -1;
             while (taille < 4 || taille > 16)
@@ -61,7 +61,7 @@ namespace Projet
         /// Méthode qui demande la langue du jeu
         /// </summary>
         /// <returns>La langue du jeu</returns>
-        public string languechoisi()
+        public  string languechoisi()
         {
             string langue = "français";
             int n = 0;
@@ -85,7 +85,7 @@ namespace Projet
         /// Méthode qui créer les 2 joueurs
         /// </summary>
         /// <returns>Les deux joueurs</returns>
-        public (Joueur, Joueur) nomsjoueurs()
+        public  (Joueur, Joueur) nomsjoueurs()
         {
             Console.WriteLine("Nom joueur 1 :");
             string nom1 = Console.ReadLine();
@@ -101,7 +101,7 @@ namespace Projet
         /// </summary>
         /// <param name="random">Permet de choisir aléatoirement qui commence</param>
         /// <returns>0 (joueur 1 commence) ou 1</returns>
-        public int mainjoueur(Random random)
+        public  int mainjoueur(Random random)
         {
             int debut = random.Next(0, 2);
             return debut;
@@ -112,7 +112,7 @@ namespace Projet
         /// </summary>
         /// <param name="mot">Mot recherché</param>
         /// <returns>Le nombre de points que rapporte le mot</returns>
-        public int NbPointsMot(string mot)
+        public  int NbPointsMot(string mot)
         {
             int nbpts = 0;
             for (int i = 0; i < mot.Length; i++)
@@ -136,7 +136,7 @@ namespace Projet
         /// </summary>
         /// <param name="joueur1">Joueur 1</param>
         /// <param name="joueur2">Joueur 2</param>
-        public void resumepartie(Joueur joueur1, Joueur joueur2)
+        public  void resumepartie(Joueur joueur1, Joueur joueur2)
         {
             Console.WriteLine("Fin du jeu !\nVoici les stats de la partie.");
             Console.WriteLine("\nJoueur 1 :");
@@ -165,7 +165,7 @@ namespace Projet
         /// <param name="plateau">Plateau de jeu</param>
         /// <param name="random">Variable aléatoire</param>
         /// <param name="tours">Numéro du tour</param>
-        public void TourJoueur(Joueur joueur, Plateau plateau, Random random, int tours)
+        public  void TourJoueur(Joueur joueur, Plateau plateau, Random random, int tours)
         {
 
             plateau.CreerPlateau(random);
@@ -198,7 +198,7 @@ namespace Projet
                 }
                 else
                 {
-                    
+
                     if (mot.Length < 2)
                     {
                         Console.WriteLine("Mot trop court.");
@@ -228,7 +228,7 @@ namespace Projet
                         };
                         Console.WriteLine("Vous avez trouvé le mot secret !!!");
                         joueur.AddList(listedefou);
-                        joueur.Score =199999999;
+                        joueur.Score = 199999999;
                         motsDuTour.AddRange(listedefou);
                         pointsDuTour = 199999999;
                         Thread.Sleep(500);
@@ -246,7 +246,7 @@ namespace Projet
                         Thread.Sleep(300);
                         Console.Clear();
                     }
-                    
+
                     else
                     {
                         int nbPoints = NbPointsMot(mot);
@@ -278,22 +278,22 @@ namespace Projet
         /// Méthode qui affiche un nuage de mots pour un joueur
         /// </summary>
         /// <param name="joueur">Le joueur pour lequel on affiche le nuage</param>
-        public void AfficherNuageDeMots(Joueur joueur)
+        public  void AfficherNuageDeMots(Joueur joueur)
         {
             NuageDeMotsForm form = new NuageDeMotsForm(joueur);
-            form.ShowDialog();  
+            form.ShowDialog();
         }
 
 
         /// <summary>
         /// Méthode principale qui fait tourner le jeu
         /// </summary>
-        public void lancerjeu()
+        public  void lancerjeu()
         {
             Random random = new Random();
 
             Console.WriteLine("Bienvenue en jeu !\n");
-        début:
+            début:
             int choix = -10;
             while (choix != 1 && choix != 2)
             {
@@ -359,7 +359,7 @@ namespace Projet
                                                     Console.Clear();
                                                 }
                                             }
-                                            
+
                                         }
                                     }
                                 }
@@ -373,7 +373,7 @@ namespace Projet
                                         resumepartie(joueur1, joueur2);
                                         AfficherNuageDeMots(joueur1);
                                         AfficherNuageDeMots(joueur2);
-                                        Console.ReadKey ();
+                                        Console.ReadKey();
                                         Console.Clear();
                                         goto début;
                                     }
@@ -403,9 +403,9 @@ namespace Projet
                                                 }
 
                                             }
-                                            
+
                                         }
-                                        
+
                                     }
                                 }
                             }

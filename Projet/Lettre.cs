@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Projet
 {
-    internal class Lettre
+    public class Lettre
     {
         public char valeur;
         public int poids;
